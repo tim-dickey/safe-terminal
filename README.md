@@ -16,10 +16,16 @@ The GitHub Actions workflow publishes this image to GitHub Container Registry:
 docker build -t safe-terminal:local .
 ```
 
+## Security
+
+⚠️ This image serves an interactive shell over HTTP. Never expose it publicly without authentication and network controls.
+
+By default, the container requires `TTYD_CREDENTIALS` (`user:password`) and will exit if it is not set.
+
 ## Run locally
 
 ```bash
-docker run --rm -p 7681:7681 safe-terminal:local
+docker run --rm -e TTYD_CREDENTIALS=admin:change-me -p 7681:7681 safe-terminal:local
 ```
 
 Then open `http://localhost:7681` in your browser.
@@ -28,5 +34,5 @@ Then open `http://localhost:7681` in your browser.
 
 ```bash
 docker pull ghcr.io/tim-dickey/safe-terminal:latest
-docker run --rm -p 7681:7681 ghcr.io/tim-dickey/safe-terminal:latest
+docker run --rm -e TTYD_CREDENTIALS=admin:change-me -p 7681:7681 ghcr.io/tim-dickey/safe-terminal:latest
 ```
